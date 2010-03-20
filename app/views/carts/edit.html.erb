@@ -1,0 +1,12 @@
+<h1>Editing cart</h1>
+
+<% form_for(@cart) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @cart %> |
+<%= link_to 'Back', carts_path %>
