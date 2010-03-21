@@ -1,20 +1,55 @@
-<h1>Listing categories</h1>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", categories_path(:parent=>params[:parent])  %></li>
+      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_category_path(:parent=>params[:parent]) %></li>
+    </ul>
+  </div>          
+  <div class="content">          
+    <h2 class="title"><%= t("web-app-theme.all", :default => "All")  %> Categories</h2>
 
-<table>
-  <tr>
-    <th>Title</th>
-  </tr>
+   
+    <div class="inner">
+       <%=show_category_path%>
+      <table class="table">
+        <tr>             
+          <th class="first">ID</th>
 
-<% @categories.each do |category| %>
-  <tr>
-    <td><%=h category.title %></td>
-    <td><%= link_to 'Show', category %></td>
-    <td><%= link_to 'Edit', edit_category_path(category) %></td>
-    <td><%= link_to 'Destroy', category, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+          <th>
+            <%= t("activerecord.attributes.category.title", :default => t("activerecord.labels.title", :default => "Title")) %>
+          </th>
 
-<br />
+          <th><%= t("web-app-theme.created_at", :default => "Created at")  %></th>
+          <th class="last">&nbsp;</th>
+        </tr>
+        <% @categories.each do |category| -%>
+          <tr class="<%= cycle("odd", "even") %>">
+            <td>
+              <%= category.id %>
+            </td>
 
-<%= link_to 'New category', new_category_path %>
+            <td>
+              <%= link_to category.title, categories_path(:parent => category) %>
+            </td>
+
+            <td>
+              <%= category.created_at %>
+            </td>
+            <td class="last">
+              <%= link_to "#{t("web-app-theme.show", :default => "Show")}", category_path(category, :parent=>params[:parent]) %> |
+              <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_category_path(category) %> |
+              <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", category_path(category), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+            </td>
+          </tr>
+        <% end -%>
+      </table>
+      <div class="actions-bar wat-cf">
+        <div class="actions">
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

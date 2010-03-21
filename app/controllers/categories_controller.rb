@@ -1,8 +1,30 @@
 class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.xml
+  before_filter :load_category_path
+
+  def load_category_path
+    @parents_categories = []
+    if (params[:parent])
+      @parent = Category.find_by_id(params[:parent])
+    
+      p = @parent
+      while p 
+        @parents_categories << p
+        p = p.parent
+      end
+    end
+
+    @parents_categories.reverse!
+  end
+
+
   def index
-    @categories = Category.all
+    if (params[:parent])
+      @categories = Category.find_by_id(params[:parent]).children
+    else
+      @categories = Category.find(:all, :conditions=>["parent_id IS NULL"])
+    end
 
     respond_to do |format|
       format.html # index.html.erb

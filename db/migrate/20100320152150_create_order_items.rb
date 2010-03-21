@@ -2,7 +2,7 @@ class CreateOrderItems < ActiveRecord::Migration
   def self.up
     create_table :order_items do |t|
 
-      t.timestamps
+     t.timestamps
     end
   end
 

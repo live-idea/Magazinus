@@ -1,7 +1,7 @@
 class CreateGoods < ActiveRecord::Migration
   def self.up
     create_table :goods do |t|
-
+            
       t.timestamps
     end
   end
