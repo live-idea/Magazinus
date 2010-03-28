@@ -2,7 +2,11 @@ class GoodsController < ApplicationController
   # GET /goods
   # GET /goods.xml
 
-  #before_filter :load_category_goods_path
+  before_filter :current_category
+
+  def current_category
+      @category = Category.find_by_id(params[:category_id]) unless params[:category_id].nil?
+  end
 
   def index
     #@goods = Good.all
@@ -24,9 +28,8 @@ class GoodsController < ApplicationController
   def show
     @good = Good.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @good }
+    render :update do |page|
+      page.replace_html :good_details, :partial=>"details"
     end
   end
 
@@ -54,7 +57,7 @@ class GoodsController < ApplicationController
     respond_to do |format|
       if @good.save
         flash[:notice] = 'Good was successfully created.'
-        format.html { redirect_to(category_good_path(:category_id=>params[:category_id], :id=>@good)) }
+        format.html { redirect_to(category_goods_path(@category)) }
         format.xml  { render :xml => @good, :status => :created, :location => @good }
       else
         format.html { render :action => "new" }
@@ -71,7 +74,7 @@ class GoodsController < ApplicationController
     respond_to do |format|
       if @good.update_attributes(params[:good])
         flash[:notice] = 'Good was successfully updated.'
-        format.html { redirect_to(category_good_path(:category_id=>params[:category_id], id=>@good)) }
+        format.html { redirect_to(category_goods_path(params[:category_id])) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -87,8 +90,17 @@ class GoodsController < ApplicationController
     @good.destroy
 
     respond_to do |format|
-      format.html { redirect_to(goods_url) }
+      format.html { redirect_to(category_goods_path(@category)) }
       format.xml  { head :ok }
+    end
+  end
+
+  def priceforyou
+    @good = Good.find(params[:id])
+
+    render :update do |page|
+      page.replace_html :good_details, :partial=>"priceforyou"
+      page.visual_effect :highlight, :good_details
     end
   end
 end

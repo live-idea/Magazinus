@@ -3,6 +3,11 @@ class CategoriesController < ApplicationController
   # GET /categories.xml
   before_filter :load_category_path
   before_filter :require_user
+  before_filter :current_category
+
+  def current_category
+      @category = Category.find_by_id(params[:parent]) unless params[:parent].nil?
+  end
 
   def load_category_path
     @parents_categories = []

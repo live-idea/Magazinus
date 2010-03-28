@@ -34,9 +34,14 @@
             <td>
               <%= good.category.title unless good.category.nil? %>
             </td>
-            <td><%= link_to 'Show', category_good_path(params[:category_id],good) %></td>
+            <!--<td><#%= link_to 'Show', category_good_path(params[:category_id],good) %></td>-->
+
+            <td><%= link_to_remote "Show", :url=>category_good_path(:category_id => good.category_id, :id => good.id), :method=>"get" %></td>
+            <td><%= link_to_remote "PRICE FOR TODAY", :url=>priceforyou_category_good_path(:category_id => good.category_id, :id => good.id), :method=>"get" %></td>
+
+
             <td><%= link_to 'Edit', edit_category_good_path(params[:category_id], good) %></td>
-            <td><%= link_to 'Destroy', good, :confirm => 'Are you sure?', :method => :delete %></td>
+            <td><%= link_to 'Destroy2', category_good_path(:category_id=>@category.id, :id => good.id), :confirm => 'Are you sure?', :method => :delete %></td>
           </tr>
         <% end %>
 

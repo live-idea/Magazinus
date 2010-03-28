@@ -1,0 +1,16 @@
+<p>
+        <b><%= t("activerecord.attributes.good.title", :default => t("activerecord.labels.name", :default => "Name")) %>:</b>
+        <%= @good.name %>
+      </p>
+      <p>
+        <b><%= t("activerecord.attributes.good.price", :default => t("activerecord.labels.price", :default => "Price")) %>:</b>
+        <%= @good.price %>
+      </p>
+      <p>
+        <%unless @good.category.nil? %>
+          <b>
+            <%=t("activerecord.attributes.good.category.title", :default => t("activerecord.labels.title", :default => "Title"))%>
+          </b>
+          <%=@good.category.title%>
+        <%end%>
+      </p>

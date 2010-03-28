@@ -19,7 +19,7 @@ ActionController::Routing::Routes.draw do |map|
 
   #map categories to goods tpo enable adding and editing goods with category linking
   map.resources :categories do |categories|
-    categories.resources :goods
+    categories.resources :goods, :member=>{:priceforyou=>:get}
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
