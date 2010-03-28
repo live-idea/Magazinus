@@ -28,7 +28,7 @@
            <%=link_to "Categories", categories_path%>
           </li>
           <li <%if params[:controller] == "goods"%>class="active"<%end%>>
-           <%=link_to "Goods", category_goods_path(:category_id=>params[:category_id])%>
+           <%=link_to "Goods", category_goods_path(:category_id=>params[:category_id]) unless params[:category_id].nil?%>
           </li>
           </ul>
         </div>

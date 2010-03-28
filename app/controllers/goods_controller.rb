@@ -54,7 +54,7 @@ class GoodsController < ApplicationController
     respond_to do |format|
       if @good.save
         flash[:notice] = 'Good was successfully created.'
-        format.html { redirect_to(category_good_path(:category_id=>params[:category_id], id=>@good)) }
+        format.html { redirect_to(category_good_path(:category_id=>params[:category_id], :id=>@good)) }
         format.xml  { render :xml => @good, :status => :created, :location => @good }
       else
         format.html { render :action => "new" }

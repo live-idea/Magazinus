@@ -3,6 +3,7 @@
     <ul class="wat-cf">
       <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", categories_path(:parent=>params[:parent])  %></li>
       <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_category_path(:parent=>params[:parent]) %></li>
+      <li><%= link_to "#{t("web-app-theme.new", :default => "New Good")}", new_category_good_path(:category_id=>params[:parent]) unless  params[:parent].nil?%></li>
     </ul>
   </div>          
   <div class="content">          
