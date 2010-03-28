@@ -8,9 +8,9 @@
   <div class="content">          
     <h2 class="title"><%= t("web-app-theme.all", :default => "All")  %> Categories</h2>
 
-   
+
     <div class="inner">
-       <%=show_category_path%>
+      <%=show_category_path%>
       <table class="table">
         <tr>             
           <th class="first">ID</th>
@@ -34,6 +34,10 @@
 
             <td>
               <%= category.created_at %>
+            </td>
+
+            <td>
+              <%= link_to "#{t("web-app-theme.new", :default => "Goods")}", category_goods_path(category) %></b>
             </td>
             <td class="last">
               <%= link_to "#{t("web-app-theme.show", :default => "Show")}", category_path(category, :parent=>params[:parent]) %> |

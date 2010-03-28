@@ -3,21 +3,29 @@
     <ul class="wat-cf">
       <li class="first"><%= link_to "#{t("web-app-theme.list", :default => "List")}", categories_path(:parent=>params[:parent])  %></li>
       <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_category_path(:parent=>params[:parent]) %></li>
-      <li class="active"><%= link_to "#{t("web-app-theme.show", :default => "Show")}", category_path(:parent=>params[:parent]) %></li>
+
+      <li></li>
+      <li class="active">
+      <%= link_to "#{t("web-app-theme.show", :default => "Show")}", category_path(:parent=>params[:parent]) %></li>
     </ul>
   </div>          
   <div class="content">
     <div class="inner">
-      
-        <p>
-          <b><%= t("activerecord.attributes.category.title", :default => t("activerecord.labels.title", :default => "Title")) %>:</b>
-          <%= @category.title %>
-        </p>
 
-        <p>
-          <b><%= t("activerecord.attributes.category.parent_id", :default => t("activerecord.labels.parent_id", :default => "Parent")) %>:</b>
-          <%= @category.parent_id %>
-        </p>
+      <p>
+        <b><%= t("activerecord.attributes.category.title", :default => t("activerecord.labels.title", :default => "Title")) %>:</b>
+        <%= @category.title %>
+      </p>
+
+      <p>
+        <b><%= t("activerecord.attributes.category.parent_id", :default => t("activerecord.labels.parent_id", :default => "Parent")) %>:</b>
+        <%= @category.parent_id %>
+      </p>
+
+      <p>
+      <b>
+      <%= link_to "#{t("web-app-theme.new", :default => "Goods")}", category_goods_path(@category) %></b>
+      </p>
 
       <div class="wat-cf">
         <%= link_to "#{image_tag("web-app-theme/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}")} #{t("web-app-theme.edit", :default=> "Edit")}", edit_category_path(@category), :class => "button" %>

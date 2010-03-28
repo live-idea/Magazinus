@@ -1,18 +1,58 @@
-<h1>Listing goods</h1>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", category_goods_path(params[:category_id])  %></li>
+      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_category_good_path(params[:category_id]) %></li>
+    </ul>
+  </div>
+  <div class="content">
+    <h2 class="title"><%= t("web-app-theme.all", :default => "All")  %> Goods</h2>
 
-<table>
-  <tr>
-  </tr>
 
-<% @goods.each do |good| %>
-  <tr>
-    <td><%= link_to 'Show', good %></td>
-    <td><%= link_to 'Edit', edit_good_path(good) %></td>
-    <td><%= link_to 'Destroy', good, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+    <div class="inner">
+      <table class="table">
+        <tr>
+          <th class="first">Name</th>
 
-<br />
+          <th>
+            <%= t("activerecord.attributes.good.price", :default => t("activerecord.labels.name", :default => "Price")) %>
+          </th>
 
-<%= link_to 'New good', new_good_path %>
+          <th><%= t("activerecord.attributes.good.category.title", :default => "Category")  %></th>
+          <th class="last">&nbsp;</th>
+        </tr>
+
+<!--params[:category_id]-->
+        <% @goods.each do |good| %>
+          <tr class="<%= cycle("odd", "even") %>">
+            <td>
+              <%= good.name %>
+            </td>
+            <td>
+              <%= good.price %>
+            </td>
+            <td>
+              <%= good.category.title unless good.category.nil? %>
+            </td>
+            <td><%= link_to 'Show', category_good_path(params[:category_id],good) %></td>
+            <td><%= link_to 'Edit', edit_category_good_path(params[:category_id], good) %></td>
+            <td><%= link_to 'Destroy', good, :confirm => 'Are you sure?', :method => :delete %></td>
+          </tr>
+        <% end %>
+
+      </table>
+      <div class="actions-bar wat-cf">
+        <div class="actions">
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :sidebar, render(:partial => 'sidebar') -%>
+
+
+
+
+

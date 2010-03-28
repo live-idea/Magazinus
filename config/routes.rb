@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :products
+
   map.resources :order_items
   map.resources :orders
   map.resources :cart_items
@@ -8,6 +10,17 @@ ActionController::Routing::Routes.draw do |map|
 
   map.root :controller => "categories"
   
+  map.resource :user_session
+  map.root :controller => "user_sessions", :action => "new" # optional, this just sets the root route
+
+  # register users
+  map.resource :account, :controller => "users"
+  map.resources :users
+
+  #map categories to goods tpo enable adding and editing goods with category linking
+  map.resources :categories do |categories|
+    categories.resources :goods
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
 

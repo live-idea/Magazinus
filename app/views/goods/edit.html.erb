@@ -1,12 +1,24 @@
 <h1>Editing good</h1>
 
-<% form_for(@good) do |f| %>
-  <%= f.error_messages %>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first"><%= link_to "#{t("web-app-theme.list", :default => "List")}", category_goods_path(params[:category_id])  %></li>
+      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_category_good_path(:category_id=>params[:category_id]) %></li>
+      <li class="active"><%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_category_good_path(:category_id=>params[:category_id], :id=>@good) %></li>
+    </ul>
+  </div>
+  <div class="content">
+    <h2 class="title"><%= t("web-app-theme.edit", :default => "Edit") %> Good</h2>
+    <div class="inner">
+      <% form_for @good, :url => category_good_path(:category_id=>params[:category_id], :id=>@good), :html => { :class => :form } do |f| -%>
+        <%= render :partial => "form", :locals => {:f => f} %>
+      <% end -%>
+    </div>
+  </div>
+</div>
 
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
+<% content_for :sidebar, render(:partial => 'sidebar') -%>
 
-<%= link_to 'Show', @good %> |
-<%= link_to 'Back', goods_path %>
+<%= link_to 'Show', category_good_path(:category_id=>params[:category_id], :id=>@good) %> |
+<%= link_to 'Back', category_goods_path(:category_id=>params[:category_id]) %>

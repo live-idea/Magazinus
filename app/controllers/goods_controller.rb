@@ -1,8 +1,17 @@
 class GoodsController < ApplicationController
   # GET /goods
   # GET /goods.xml
+
+  #before_filter :load_category_goods_path
+
   def index
-    @goods = Good.all
+    #@goods = Good.all
+
+    if (params[:category_id])
+      @goods = Good.find_all_by_category_id(params[:category_id])
+    else
+      @goods = Good.find(:all, :conditions=>["category_id IS NULL"])
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -45,7 +54,7 @@ class GoodsController < ApplicationController
     respond_to do |format|
       if @good.save
         flash[:notice] = 'Good was successfully created.'
-        format.html { redirect_to(@good) }
+        format.html { redirect_to(category_good_path(:category_id=>params[:category_id], id=>@good)) }
         format.xml  { render :xml => @good, :status => :created, :location => @good }
       else
         format.html { render :action => "new" }
@@ -62,7 +71,7 @@ class GoodsController < ApplicationController
     respond_to do |format|
       if @good.update_attributes(params[:good])
         flash[:notice] = 'Good was successfully updated.'
-        format.html { redirect_to(@good) }
+        format.html { redirect_to(category_good_path(:category_id=>params[:category_id], id=>@good)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

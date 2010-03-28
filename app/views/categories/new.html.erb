@@ -10,6 +10,7 @@
     <div class="inner">
       <% form_for :category, :url => categories_path, :html => { :class => :form } do |f| -%>
         <%= render :partial => "form", :locals => {:f => f} %>
+        <%= error_messages_for :category %>
       <% end -%>
     </div>
   </div>

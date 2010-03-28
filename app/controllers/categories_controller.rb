@@ -2,6 +2,7 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.xml
   before_filter :load_category_path
+  before_filter :require_user
 
   def load_category_path
     @parents_categories = []
