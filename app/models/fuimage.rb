@@ -7,4 +7,6 @@ class Fuimage < ActiveRecord::Base
 
   #validates_as_attachment
   belongs_to      :good
+  #validations
+  validates_presence_of :filename
 end
