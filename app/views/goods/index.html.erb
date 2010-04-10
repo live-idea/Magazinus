@@ -35,7 +35,9 @@
               <%= good.category.title unless good.category.nil? %>
             </td>
             <!--<td><#%= link_to 'Show', category_good_path(params[:category_id],good) %></td>-->
-
+            <td>
+              <%= link_to image_tag(good.fuimage.public_filename(:thumb)), good.fuimage.public_filename unless good.fuimage.nil?%>
+            </td>
             <td><%= link_to_remote "Show", :url=>category_good_path(:category_id => good.category_id, :id => good.id), :method=>"get" %></td>
             <td><%= link_to_remote "PRICE FOR TODAY", :url=>priceforyou_category_good_path(:category_id => good.category_id, :id => good.id), :method=>"get" %></td>
 

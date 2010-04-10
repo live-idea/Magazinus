@@ -8,6 +8,7 @@ class CreateFuimages < ActiveRecord::Migration
       t.column :size, :integer
       t.column :width, :integer
       t.column :height, :integer
+      t.column :good_id, :integer
     end
   end
 

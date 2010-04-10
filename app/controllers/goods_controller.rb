@@ -3,9 +3,14 @@ class GoodsController < ApplicationController
   # GET /goods.xml
 
   before_filter :current_category
+  before_filter :current_good
 
   def current_category
       @category = Category.find_by_id(params[:category_id]) unless params[:category_id].nil?
+  end
+
+  def current_good
+      @good = Good.find_by_id(params[:id]) unless params[:id].nil?
   end
 
   def index
@@ -26,8 +31,6 @@ class GoodsController < ApplicationController
   # GET /goods/1
   # GET /goods/1.xml
   def show
-    @good = Good.find(params[:id])
-
     render :update do |page|
       page.replace_html :good_details, :partial=>"details"
     end
@@ -38,6 +41,8 @@ class GoodsController < ApplicationController
   def new
     @good = Good.new
 
+    @good.fuimage = Fuimage.new
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @good }
@@ -47,6 +52,11 @@ class GoodsController < ApplicationController
   # GET /goods/1/edit
   def edit
     @good = Good.find(params[:id])
+
+    #to enable adding image on edit form
+    if @good.fuimage.nil?
+          @good.fuimage = Fuimage.new
+    end
   end
 
   # POST /goods

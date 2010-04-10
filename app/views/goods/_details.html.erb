@@ -14,3 +14,13 @@
           <%=@good.category.title%>
         <%end%>
       </p>
+
+      <p>
+        <%unless @good.fuimage.nil? %>
+          <b>
+            <%=t("activerecord.attributes.good.fuimage.public_filename", :default => t("activerecord.labels.fuimage", :default => "Picture"))%>
+          </b>
+        <%= image_tag (@good.fuimage.public_filename)%>
+        <%end%>
+      </p>
+

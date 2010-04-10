@@ -10,11 +10,13 @@
     <%= f.text_field :price, :class => 'text_field' %>
     <span class="description">Price</span>
   </div>
-
- <!--<p>
+<% f.fields_for :fuimage do |image_sub_form| %>
+    <p>
     <label for="fuimage">Upload A fuimage:</label>
-    <#%= f.file_field :uploaded_data %>
-  </p>-->
+    <%= image_sub_form.file_field :uploaded_data %>
+  </p>
+<% end %>
+
 
 
 
