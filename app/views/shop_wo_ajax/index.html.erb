@@ -4,24 +4,38 @@
 
 
     <div class="inner">
-        <!--Here insert goods list-->
-        <%if params[:selected_subcategory].nil?%>
-          <%unless params[:selected_category].nil?%>
-            <%category_id=params[:selected_category]%>
-          <%end%>
-        <%else%>
-          <!--id only subcategory  not selected-->
-          <%category_id=params[:selected_subcategory]%>
+      <!--goods list-->
+      <%if params[:selected_subcategory].nil?%>
+        <!--id only subcategory  not selected-->
+        <%unless params[:selected_category].nil?%>
+          <%category_id=params[:selected_category]%>
         <%end%>
-        <%if category_id.nil?%>
+      <%else%>
+        <%category_id=params[:selected_subcategory]%>
+      <%end%>
+      <%if category_id.nil?%>
+        <%if params[:id].nil?%>
           <div><H1>Category is not selected</H1></div>
         <%else%>
-          <%#  $goods = Good.find_all_by_category_id(category_id)%>
+          <!--good info here-->
+          <div>
+            <%= image_tag @good.fuimage.public_filename()%><br>
+              <%=@good.name%><br>
+              Price:<%=@good.price%><br>
+              Add to Cart: Not Implemented yet (((
+            </div>
+          <%end%>
+       <%else%>
+    <%#  $goods = Good.find_all_by_category_id(category_id)%>
           <% @goods.each do |good| %>
             <div class="good_on_shop">
-                <%= link_to image_tag(good.fuimage.public_filename(:thumb)), good.fuimage.public_filename unless good.fuimage.nil?%>
-                <%= good.name %> (<%= good.price %>$)
-             </div>
+      <%#= link_to image_tag(good.fuimage.public_filename(:thumb)), good.fuimage.public_filename unless good.fuimage.nil?%>
+              <%#= link_to image_tag(good.fuimage.public_filename(:thumb)), {:id=>good.id} %>
+              <%= link_to image_tag(good.fuimage.public_filename(:thumb)),
+                {:controller=>:shop_wo_ajax, :action=>:show_good, :id=>good.id, :selected_category=>params[:selected_category],
+                :selected_subcategory=>params[:selected_subcategory]} %>
+              <br><%= good.name %> (<%= good.price %>$)
+            </div>
           <%end%>
         <%end%>
         <div class="actions-bar wat-cf">

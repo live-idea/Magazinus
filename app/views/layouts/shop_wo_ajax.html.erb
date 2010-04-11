@@ -19,14 +19,14 @@
                 <%#= link_to_remote category.title, category%>
                 <%#= link_to_remote "Show", :url=>category_good_path(:category_id => good.category_id, :id => good.id), :method=>"get" %>
                 <%#= link_to category.title, :url=>{:controller=>:shop_wo_ajax, :action=>:get_sub_categories, :category_id => category.id}, :method=>"get" %>
-                <%=link_to category.title, {:selected_category=>category.id, :category_id=>category.id} %>
+                <%=link_to category.title, {:selected_category=>category.id, :category_id=>category.id, :action=>:index} %>
               </div>  
  
              <div id="subcategories_for_<%=category.title%>">
              <%if category.id == params[:selected_category].to_i%>
                 <%category.children.each do |subcategory|%>
                   <div>
-                    <%=link_to subcategory.title, {:selected_category=>category.id,:selected_subcategory=>subcategory.id, :category_id=>subcategory.id} %>
+                    ****<%=link_to subcategory.title, {:selected_category=>category.id,:selected_subcategory=>subcategory.id, :category_id=>subcategory.id, :action=>:index} %>
                    </div>
                 <%end%>
               <%end%>
