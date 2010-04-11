@@ -9,6 +9,30 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
   filter_parameter_logging :password, :password_confirmation
   helper_method :current_user_session, :current_user
+  before_filter :current_category
+  before_filter :current_good
+  before_filter :set_host
+  before_filter :goods_for_current_category
+
+  def set_host
+    ActionMailer::Base.default_url_options[:host] = request.host_with_port
+  end
+
+  def current_category
+      @category = Category.find_by_id(params[:category_id]) unless params[:category_id].nil?
+  end
+
+  def current_good
+      @good = Good.find_by_id(params[:id]) unless params[:id].nil?
+  end
+  
+  def goods_for_current_category
+    unless (@category.nil?)
+      @goods = Good.find_all_by_category_id(@category)
+    else
+      @goods = Good.find(:all, :conditions=>["category_id IS NULL"])
+    end
+  end
 
   private
     def current_user_session

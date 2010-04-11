@@ -1,0 +1,64 @@
+/* 
+    Document   : style
+    Created on : Apr 10, 2010, 2:54:45 PM
+    Author     : OS
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+body {
+    background-color: #ccc;
+}
+
+#container{
+    width: 1300px;
+    min-height: 500px;
+    margin: 10px auto;
+    background-color: #0000ff;
+}
+
+#header{
+    height: 100px;
+    background-color: #1144ee;
+}
+
+#left{
+    width: 200px;
+    float: left;
+    min-height: 400px;
+    height: 100%;
+    background-color: #4444aa;
+    
+}
+#bottom{
+    background-color: #1010ff;
+    height: 40px;
+    clear: both;
+}
+
+#content{
+    padding: 10px;
+    width: 900px;
+    float : left;
+    background-color: #eeeeee;
+}
+/*#right{
+    padding: 10px;
+    float: right;
+    width: 200px;
+}*/
+
+#content{
+    border: 2px solid #ff2222;
+}
+
+.good_on_shop{
+    float:  left;
+    width:  200px;
+    height: 200px;
+}

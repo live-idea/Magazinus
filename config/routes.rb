@@ -8,7 +8,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :goods
   map.resources :categories
 
-  map.root :controller => "categories"
+  map.root :controller => "shop_wo_ajax"
+  #map.root :controller => "shop"
+  #map.root :controller => "categories"
   
   map.resource :user_session
   map.root :controller => "user_sessions", :action => "new" # optional, this just sets the root route

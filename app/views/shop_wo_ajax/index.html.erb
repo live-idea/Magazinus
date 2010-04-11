@@ -1,0 +1,33 @@
+<div class="block">
+  <div class="content">
+    <h2 class="title"><%= t("web-app-theme.all", :default => "Goods in category: "+((@category.title unless @category.nil?)||""))  %></h2>
+
+
+    <div class="inner">
+        <!--Here insert goods list-->
+        <%if params[:selected_subcategory].nil?%>
+          <%unless params[:selected_category].nil?%>
+            <%category_id=params[:selected_category]%>
+          <%end%>
+        <%else%>
+          <!--id only subcategory  not selected-->
+          <%category_id=params[:selected_subcategory]%>
+        <%end%>
+        <%if category_id.nil?%>
+          <div><H1>Category is not selected</H1></div>
+        <%else%>
+          <%#  $goods = Good.find_all_by_category_id(category_id)%>
+          <% @goods.each do |good| %>
+            <div class="good_on_shop">
+                <%= link_to image_tag(good.fuimage.public_filename(:thumb)), good.fuimage.public_filename unless good.fuimage.nil?%>
+                <%= good.name %> (<%= good.price %>$)
+             </div>
+          <%end%>
+        <%end%>
+        <div class="actions-bar wat-cf">
+          <div class="actions">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

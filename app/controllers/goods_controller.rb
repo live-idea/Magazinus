@@ -5,14 +5,6 @@ class GoodsController < ApplicationController
   before_filter :current_category
   before_filter :current_good
 
-  def current_category
-      @category = Category.find_by_id(params[:category_id]) unless params[:category_id].nil?
-  end
-
-  def current_good
-      @good = Good.find_by_id(params[:id]) unless params[:id].nil?
-  end
-
   def index
     #@goods = Good.all
 
@@ -38,6 +30,7 @@ class GoodsController < ApplicationController
 
   # GET /goods/new
   # GET /goods/new.xml
+  # only shjows from, for successful creation, see create method
   def new
     @good = Good.new
 
@@ -63,10 +56,11 @@ class GoodsController < ApplicationController
   # POST /goods.xml
   def create
     @good = Good.new(params[:good])
-
+    
     respond_to do |format|
       if @good.save
         flash[:notice] = 'Good was successfully created.'
+        Shopmailer.deliver_new_good(@category, @good)
         format.html { redirect_to(category_goods_path(@category)) }
         format.xml  { render :xml => @good, :status => :created, :location => @good }
       else

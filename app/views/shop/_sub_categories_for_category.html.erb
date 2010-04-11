@@ -1,0 +1,28 @@
+<%
+@categories = Category.find_by_id(params[:category_id]).children
+@categories.each do |category| %>
+        <table>
+          <tr class="<%= cycle("odd", "even") %>">
+            <td>
+              <%= category.id %>
+            </td>
+
+            <td>
+              <%= link_to category.title, categories_path(:parent => category) %>
+            </td>
+
+            <td>
+              <%= category.created_at %>
+            </td>
+
+            <td>
+              <%= link_to "#{t("web-app-theme.new", :default => "Goods")}", category_goods_path(category) %></b>
+            </td>
+            <td class="last">
+              <%= link_to "#{t("web-app-theme.show", :default => "Show")}", category_path(category, :parent=>params[:parent]) %> |
+              <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_category_path(category) %> |
+              <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", category_path(category), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+            </td>
+          </tr>
+        </table>
+<%end%>

@@ -1,0 +1,3 @@
+Hello,
+New good <%=@good.name%> was added to catagory <%=@category.title%>.
+<%=link_to @good.name, category_good_path(@category,@good, :only_path=>false)%>

@@ -15,3 +15,13 @@ config.action_controller.perform_caching             = false
 
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
+
+ActionMailer::Base.smtp_settings = {
+  #:tls => true,
+  :address => "smtpout.secureserver.net",
+  #:port => "587",
+  :domain => "zeo.com",
+  :authentication => :plain,
+  :user_name => "support@zeo.com",
+  :password => "passs"
+}
