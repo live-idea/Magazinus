@@ -6,10 +6,14 @@
     <div>Name:<%=cart_item.good.name%></div>
     <div>Price:<%=cart_item.good.price%></div>
     <div>Quantity:<%=cart_item.quantity%></div>
-    <div>Add One Item</div>
-    <div>Remove One Item</div>
     <div>
-        <%= link_to_remote "Remove This Item", :url=>{:controller=>:cart_items, :action=>:destroy, :id=>cart_item.id}, :method=>:delete %>
+      <%= link_to_remote "Add Items", :url=>{:controller=>:cart_items, :action=>:update, :id=>cart_item.id, :direction=>"+", :quantity=>1}, :method=>:put %>
+    </div>
+    <div>
+      <%= link_to_remote "Decrease Items", :url=>{:controller=>:cart_items, :action=>:update, :id=>cart_item.id, :direction=>"-", :quantity=>1}, :method=>:put %>
+    </div>
+    <div>
+      <%= link_to_remote "Remove This Item", :url=>{:controller=>:cart_items, :action=>:destroy, :id=>cart_item.id}, :method=>:delete %>
     </div>
   </div><br>
   <% @cart_sum+= cart_item.quantity*cart_item.good.price%>

@@ -72,26 +72,29 @@ class CartItemsController < ApplicationController
     session[:cart]=@cart.id
 
     #refresh cart
-    render :update do |page|
-      page.replace_html "cart", :partial=>"carts/cart"
-    end
+    render_cart
   end
 
   # PUT /cart_items/1
   # PUT /cart_items/1.xml
   def update
     @cart_item = CartItem.find(params[:id])
+    @direction = params[:direction]
+    @items_change_quantity = params[:quantity]
 
-    respond_to do |format|
-      if @cart_item.update_attributes(params[:cart_item])
-        flash[:notice] = 'CartItem was successfully updated.'
-        format.html { redirect_to(@cart_item) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @cart_item.errors, :status => :unprocessable_entity }
+    if @direction=="+"
+      @cart_item.quantity += @items_change_quantity.to_i
+    else #decreasing cart item quantity
+      if @cart_item.quantity<=@items_change_quantity.to_i
+        @cart_item.destroy
+      else # if decreasing cart item quantity NOT to 0
+        @cart_item.quantity-=@items_change_quantity.to_i
       end
     end
+    @cart_item.save
+    
+    #refresh cart
+    render_cart
   end
 
   # DELETE /cart_items/1
@@ -101,9 +104,7 @@ class CartItemsController < ApplicationController
     @cart_item.destroy
 
     #refresh cart
-    render :update do |page|
-      page.replace_html "cart", :partial=>"carts/cart"
-    end
+    render_cart
   end
 
 
