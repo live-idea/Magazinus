@@ -1,6 +1,13 @@
 class CartItemsController < ApplicationController
   # GET /cart_items
   # GET /cart_items.xml
+#  before_filter :get_cart
+#
+#  def get_cart
+#    @cart = session[:cart] ? Cart.find_by_id(session[:cart]) : nil
+#  end
+
+
   def index
     @cart_items = CartItem.all
 
@@ -41,14 +48,31 @@ class CartItemsController < ApplicationController
   # POST /cart_items.xml
   def create
     @good = Good.find(params[:good_id])
-    cart_item = Cart_item.new
-    cart_item.good = @good
-    @cart.cart_items << cart_item
 
+    # find cart item with same good
+    @cart_item_w_same_product = @cart.cart_items.find_by_good_id(@good.id)
+
+    # if not found add cart item or increase counter otherwise
+    if @cart_item_w_same_product.nil?
+      @cart_item = CartItem.new
+      @cart_item.quantity = 1
+      @cart_item.good = @good
+    else
+      @cart_item_w_same_product.quantity+=1
+      @cart_item = @cart_item_w_same_product
+    end
+
+    @cart_item.save
+
+    @cart.cart_items << @cart_item
+
+    @cart.save
     # save to session
-    session[:cart]=@cart
+    session[:cart]=@cart.id
+
+    #refresh cart
     render :update do |page|
-      page.replace_html "cart", :partial=>"add_cart_item"
+      page.replace_html "cart", :partial=>"carts/cart"
     end
   end
 

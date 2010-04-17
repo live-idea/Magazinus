@@ -36,6 +36,7 @@
                 {:controller=>:shop_wo_ajax, :action=>:show_good, :id=>good.id, :selected_category=>params[:selected_category],
                 :selected_subcategory=>params[:selected_subcategory]} %>
               <br><%= good.name %> (<%= good.price %>$)
+              <br><%= link_to_remote "Add to Cart", :url=>{:controller=>:cart_items, :action=>:create, :good_id=>good.id}, :method=>"post"%>
             </div>
           <%end%>
         <%end%>

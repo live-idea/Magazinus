@@ -3,5 +3,5 @@
             <%= image_tag @good.fuimage.public_filename()%><br>
               <%=@good.name%><br>
               Price:<%=@good.price%><br>
-              Add to Cart: Not Implemented yet (((
+              <%= link_to_remote "Add to Cart", :url=>{:controller=>:cart_items, :action=>:create, :good_id=>@good.id}, :method=>"get"%>
           </div>

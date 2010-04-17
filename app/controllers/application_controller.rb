@@ -16,9 +16,11 @@ class ApplicationController < ActionController::Base
   before_filter :cart
 
   def cart
-    unless @cart.nil?
+    @cart = session[:cart] ? Cart.find_by_id(session[:cart]) : nil
+    if @cart.nil?
        @cart = Cart.new
-       session[:cart]=@cart
+       @cart.save
+       session[:cart]=@cart.id
     end
   end
 

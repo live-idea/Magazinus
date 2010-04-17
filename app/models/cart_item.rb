@@ -1,4 +1,4 @@
 class CartItem < ActiveRecord::Base
-  belongs_to :carts
-  belongs_to :goods
+  belongs_to :cart
+  belongs_to :good
 end
