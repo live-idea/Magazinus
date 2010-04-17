@@ -82,4 +82,13 @@ class CartsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  #clears all cart
+  def clear
+    @cart.cart_items.clear
+    #refresh cart
+    render :update do |page|
+      page.replace_html "cart", :partial=>"cart"
+    end
+  end
 end

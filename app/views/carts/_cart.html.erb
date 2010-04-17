@@ -1,8 +1,26 @@
-Cart
-Items:
+<H1>Your Cart</H1>
+<%@cart_sum=0%>
 <%@cart.cart_items.each do |cart_item|%>
-<div><%=cart_item.good.name%>
-<div><%=cart_item.good.price%>
-<div><%=cart_item.quantity%>
-<div><%=cart_item.quantity%>
+  <div>
+    <div><%= image_tag (cart_item.good.fuimage.public_filename(:thumb)) %></div>
+    <div>Name:<%=cart_item.good.name%></div>
+    <div>Price:<%=cart_item.good.price%></div>
+    <div>Quantity:<%=cart_item.quantity%></div>
+    <div>Add One Item</div>
+    <div>Remove One Item</div>
+    <div>
+        <%= link_to_remote "Remove This Item", :url=>{:controller=>:cart_items, :action=>:destroy, :id=>cart_item.id}, :method=>:delete %>
+    </div>
+  </div><br>
+  <% @cart_sum+= cart_item.quantity*cart_item.good.price%>
 <%end%>
+<div>
+  Sum: <%=@cart_sum%>
+</div><br>
+<div>
+  Buy Items
+  <div/>
+  <div>
+    <%= link_to_remote "Clear Cart", :url=>{:controller=>:carts, :action=>"clear"} %>
+  </div>
+</div>

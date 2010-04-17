@@ -1,11 +1,11 @@
 class CartItemsController < ApplicationController
   # GET /cart_items
   # GET /cart_items.xml
-#  before_filter :get_cart
-#
-#  def get_cart
-#    @cart = session[:cart] ? Cart.find_by_id(session[:cart]) : nil
-#  end
+  #  before_filter :get_cart
+  #
+  #  def get_cart
+  #    @cart = session[:cart] ? Cart.find_by_id(session[:cart]) : nil
+  #  end
 
 
   def index
@@ -46,6 +46,7 @@ class CartItemsController < ApplicationController
 
   # POST /cart_items
   # POST /cart_items.xml
+  # Adds item to cart, if same good was added before, increases counter
   def create
     @good = Good.find(params[:good_id])
 
@@ -99,9 +100,17 @@ class CartItemsController < ApplicationController
     @cart_item = CartItem.find(params[:id])
     @cart_item.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(cart_items_url) }
-      format.xml  { head :ok }
+    #refresh cart
+    render :update do |page|
+      page.replace_html "cart", :partial=>"carts/cart"
+    end
+  end
+
+
+  private
+  def render_cart
+    render :update do |page|
+      page.replace_html "cart", :partial=>"carts/cart"
     end
   end
 end
