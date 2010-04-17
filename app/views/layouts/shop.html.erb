@@ -16,12 +16,12 @@
             <!--show only high level categories-->
             <%unless category.parent_id.nil?%>
               <div>
-                <%#= link_to_remote category.title, category%>
-                <%#= link_to_remote "Show", :url=>category_good_path(:category_id => good.category_id, :id => good.id), :method=>"get" %>
+    <%#= link_to_remote category.title, category%>
+    <%#= link_to_remote "Show", :url=>category_good_path(:category_id => good.category_id, :id => good.id), :method=>"get" %>
                 <%= link_to_remote category.title, :url=>{:controller=>:shop, :action=>:get_sub_categories, :category_id => category.id}, :method=>"get" %>
               </div>
-            <div id="subcategories_for_<%=category.id%>">
-            </div>
+              <div id="subcategories_for_<%=category.id%>">
+              </div>
             <%end%>
           </div>
         <%end%>

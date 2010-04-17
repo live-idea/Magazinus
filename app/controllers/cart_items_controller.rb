@@ -40,17 +40,15 @@ class CartItemsController < ApplicationController
   # POST /cart_items
   # POST /cart_items.xml
   def create
-    @cart_item = CartItem.new(params[:cart_item])
+    @good = Good.find(params[:good_id])
+    cart_item = Cart_item.new
+    cart_item.good = @good
+    @cart.cart_items << cart_item
 
-    respond_to do |format|
-      if @cart_item.save
-        flash[:notice] = 'CartItem was successfully created.'
-        format.html { redirect_to(@cart_item) }
-        format.xml  { render :xml => @cart_item, :status => :created, :location => @cart_item }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @cart_item.errors, :status => :unprocessable_entity }
-      end
+    # save to session
+    session[:cart]=@cart
+    render :update do |page|
+      page.replace_html "cart", :partial=>"add_cart_item"
     end
   end
 

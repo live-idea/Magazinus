@@ -13,6 +13,14 @@ class ApplicationController < ActionController::Base
   before_filter :current_good
   before_filter :set_host
   before_filter :goods_for_current_category
+  before_filter :cart
+
+  def cart
+    unless @cart.nil?
+       @cart = Cart.new
+       session[:cart]=@cart
+    end
+  end
 
   def set_host
     ActionMailer::Base.default_url_options[:host] = request.host_with_port
