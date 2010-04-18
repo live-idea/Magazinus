@@ -22,9 +22,38 @@
   Sum: <%=@cart_sum%>
 </div><br>
 <div>
-  Buy Items
-  <div/>
-  <div>
-    <%= link_to_remote "Clear Cart", :url=>{:controller=>:carts, :action=>"clear"} %>
-  </div>
+  <%= link_to_remote "Clear Cart", :url=>{:controller=>:carts, :action=>"clear"} %>
+</div>
+<div>
+  <%if @cart_sum != 0%>
+    <% payment_service_for @cart.id, PAYPAL_ACCOUNT,
+      :amount => @cart_sum, :currency => 'USD',
+      :service => :paypal do |service|
+
+      #service.customer :first_name => @enrollment.student.first_name,
+      #:last_name => @enrollment.student.last_name,
+      #:phone => @enrollment.student.phone,
+      #:email => @enrollment.student.email
+      #service.billing_address :city => @enrollment.student.city,
+      #:address1 => @enrollment.student.street,
+      #:state => @enrollment.student.state,
+      #:country => 'USA',
+      #:zip => @enrollment.student.zip
+      #service.item_name "#{@enrollment.course.program} Deposit"
+      #service.invoice @enrollment.invoice.id
+      service.tax '0.00'
+
+      service.notify_url url_for(:only_path => false, :controller=>:carts, :action => 'notify')
+      service.return_url cart_was_purchased_cart_path(@cart, :only_path => false, :authenticity_token=>form_authenticity_token)
+
+      service.cancel_return_url url_for(:only_path => false,
+        :controller => 'shop_wo_ajax', :action => 'index') %>
+
+      <!-- display payment summary here -->
+
+      <%= submit_tag 'Make Payment' %>
+    <% end %>
+  <%end%>
+</div>
+
 </div>

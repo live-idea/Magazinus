@@ -1,0 +1,26 @@
+<div class="block">
+  <div class="content">
+    <div class="inner">
+      <H1>Dear Customer! Thank You for using our service!</H1>
+      Your Order was succesfully confirmed.
+      <%@cart_sum=0%>
+      <%@cart.cart_items.each do |cart_item|%>
+        <div>
+          <div><%= image_tag (cart_item.good.fuimage.public_filename(:thumb)) %></div>
+          <div>Name:<%=cart_item.good.name%></div>
+          <div>Price per item:<%=cart_item.good.price%></div>
+          <div>Quantity:<%=cart_item.quantity%></div>
+          <div>Price:<%=cart_item.quantity*cart_item.good.price%></div>
+        </div><br>
+        <% @cart_sum+= cart_item.quantity*cart_item.good.price%>
+      <%end%>
+      <div>
+        Sum: <%=@cart_sum%>
+      </div><br>
+      <div class="actions-bar wat-cf">
+        <div class="actions">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

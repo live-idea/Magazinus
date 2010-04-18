@@ -24,6 +24,9 @@ ActionController::Routing::Routes.draw do |map|
     categories.resources :goods, :member=>{:priceforyou=>:get}
   end
 
+  map.resources :carts,  :member=>{:cart_was_purchased=>:any}
+   
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

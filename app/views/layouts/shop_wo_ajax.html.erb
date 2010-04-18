@@ -19,7 +19,7 @@
                 <%#= link_to_remote category.title, category%>
                 <%#= link_to_remote "Show", :url=>category_good_path(:category_id => good.category_id, :id => good.id), :method=>"get" %>
                 <%#= link_to category.title, :url=>{:controller=>:shop_wo_ajax, :action=>:get_sub_categories, :category_id => category.id}, :method=>"get" %>
-                <%=link_to category.title, {:selected_category=>category.id, :category_id=>category.id, :action=>:index} %>
+                <%=link_to category.title, {:controller=>:shop_wo_ajax, :selected_category=>category.id, :category_id=>category.id, :action=>:index} %>
               </div>  
  
              <div id="subcategories_for_<%=category.title%>">
